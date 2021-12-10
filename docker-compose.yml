@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    build: &web_build
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes: &web_volumes
+      - /app/node_modules
+      - ./:/app
+  tests:
+    build: *web_build
+    volumes: *web_volumes
+    command: ["npm", "run", "test"]
